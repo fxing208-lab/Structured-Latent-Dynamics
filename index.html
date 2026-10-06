@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Hamiltonian World Model for Physically Consistent Embodied Prediction.">
-  <meta name="keywords" content="Hamiltonian World Model, World Model, Embodied AI, Ctrl-World, EVAC, Cosmos, RoboCasa, LIBERO">
+  <meta name="description" content="Structured Latent Dynamics for Long-Horizon Embodied World Models.">
+  <meta name="keywords" content="Structured Latent Dynamics, HWM, World Model, Embodied AI, Ctrl-World, EVAC, Cosmos, RoboCasa, LIBERO">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hamiltonian World Model for Physically Consistent Embodied Prediction</title>
+  <title>Structured Latent Dynamics for Long-Horizon Embodied World Models</title>
 
   <script>
     window.MathJax = {
@@ -37,6 +37,12 @@
       font-weight: 400;
       color: #4a4a4a;
     }
+    .author-line {
+      margin-top: 18px;
+      line-height: 1.7;
+    }
+    .author-line span { margin: 0 0.45rem; white-space: nowrap; }
+    .author-note { margin-top: 8px; color: #555; }
     .publication-links {
       display: flex;
       justify-content: center;
@@ -364,14 +370,21 @@
         <div class="container is-max-desktop" style="margin-top: 28px;">
           <div class="has-text-centered">
             <h1 class="title is-2 publication-title">
-              <span class="title-color">Hamiltonian World Model for Physically Consistent Embodied Prediction</span>
+              <span class="title-color">Structured Latent Dynamics for Long-Horizon Embodied World Models</span>
             </h1>
 
-            <div class="is-size-5" style="margin-top: 16px;">
-              Anonymous authors
+            <div class="is-size-5 author-line">
+              <span>Kevin Chen<sup>*</sup></span>
+              <span>Yuwei Zhan<sup>*</sup></span>
+              <span>Haoran Liang</span>
+              <span>Sen Cui<sup>‡,†</sup></span>
+              <span>Changshui Zhang<sup>†</sup></span>
             </div>
-            <div class="is-size-6" style="margin-top: 8px; color: #555;">
-              Under double-blind review
+            <div class="is-size-5" style="margin-top: 4px;">
+              Tsinghua University
+            </div>
+            <div class="is-size-7 author-note">
+              <sup>*</sup>Equal contribution. &nbsp; <sup>‡</sup>Project leader. &nbsp; <sup>†</sup>Corresponding authors.
             </div>
 
             <div class="publication-links" style="margin-top: 22px;">
@@ -401,13 +414,13 @@
         <h2 class="title is-3 has-text-centered">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Embodied world models are increasingly expected to serve not only as video generators, but as internal simulators for action-conditioned prediction. Most existing models parameterize latent transitions with generic generative modules, so physical structure is learned only implicitly. Small one-step errors then accumulate into long-horizon drift, especially in contact-rich manipulation.
+            Reliable long-horizon prediction remains a central challenge for embodied world models. Although recent generative models can synthesize visually plausible action-conditioned futures, their latent dynamics are typically learned through unconstrained transition modules, which may gradually deviate from coherent physical evolution as predictions are recursively rolled forward. We investigate whether explicitly structuring latent state evolution can improve the stability and utility of such imagined trajectories.
           </p>
           <p>
-            We propose <strong>Hamiltonian World Model (HWM)</strong>, a physically structured latent transition. Backbone latents are mapped into a learned phase space of generalized coordinates and momenta, then evolved by dissipative Hamiltonian dynamics. A bidirectional phase-space interface and a multi-step transition-consistency objective keep this rollout compatible with existing encoders and decoders, so HWM is a drop-in replacement for the latent transition module.
+            To this end, we introduce <strong>HWM</strong>, a structured dynamics framework that represents backbone latents in a learned phase space consisting of generalized coordinates and momenta. Future states are propagated through dissipative Hamiltonian dynamics and mapped back to the original latent representation through a learnable inverse interface. The resulting formulation can be integrated into existing world-model architectures without redesigning their perception or decoding components, while multi-step transition supervision encourages the structured rollout to remain aligned with the latent trajectories induced by real observations.
           </p>
           <p>
-            In simulation, HWM improves speed, acceleration, and jerk prediction and preserves system energy more faithfully than an unstructured transition. Instantiated in Ctrl-World, EVAC, and Cosmos-Predict2.5-2B, it yields a 2.7% relative success-rate gain on RoboCasa, a 9.7% relative gain on Ctrl-World nDTW, and an 8.4% relative gain on EVAC Logic.
+            Controlled simulation experiments show that HWM produces more accurate estimates of velocity, acceleration, and jerk and substantially reduces long-horizon energy drift relative to unstructured latent dynamics. We further evaluate the approach across three distinct embodied world-model settings, covering single-arm multi-view prediction with Ctrl-World, dual-arm single-view prediction with EVAC, and task-oriented single-arm prediction with Cosmos-Predict2.5-2B. On RoboCasa, incorporating HWM into Cosmos-Predict2.5-2B yields a 2.7% relative improvement in task success. On real-world AgiBot World trajectories, it improves nDTW by 9.7% with Ctrl-World and Logic by 8.4% with EVAC. Across these settings, the results indicate that introducing explicit dynamical structure into latent evolution can improve both long-horizon predictive stability and the downstream usefulness of embodied world-model rollouts.
           </p>
         </div>
       </div>
